@@ -24,6 +24,8 @@ def check(bi, market):
 	elif mafast < maslow * 0.9925:
 		return "DOWN"	
 
+cyclecounter = 0		
+
 def func():
 	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 	comparedict = dict.fromkeys(CurrenciesOfInterest, [])
@@ -48,7 +50,15 @@ def func():
 				elif comparedict[cur][0][-2:] == "NO" and comparedict[cur][1][-3:] == "YES":
 					bot.sendMessage(-1001169060108, "{} buy signal".format(cur))				
 					print(cur, comparedict[cur])
-					print("{} trend has changed".format(cur))		
+					print("{} trend has changed".format(cur))
+				global cyclecounter
+				cyclecounter += 1
+				if cyclecounter == 24:
+					bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
+					cyclecounter = 0
+				else:
+					pass	
+
 
 def main():
 	try:
