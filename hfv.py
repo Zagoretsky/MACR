@@ -32,7 +32,7 @@ def func():
 		comparedict[marketName] = [string, string]
 		print(comparedict)
 	while True:
-		time.sleep(3)
+		time.sleep(300)
 		for cur in comparedict:
 			string = '{} {}'.format(cur, 'YES' if check(bi, cur) == "UP" else 'NO')
 			if len(comparedict[cur]) > 1:
@@ -41,7 +41,6 @@ def func():
 				if comparedict[cur][0] == comparedict[cur][1]:
 						print(cur, comparedict[cur])
 						print("{} trend is the same".format(cur))
-						bot.sendMessage(-1001169060108, "{} sameshit".format(cur))
 				elif comparedict[cur][0][-3:] == "YES" and comparedict[cur][1][-2:] == "NO":
 					bot.sendMessage(-1001169060108, "{} sell signal".format(cur))				
 					print(cur, comparedict[cur])
@@ -51,5 +50,12 @@ def func():
 					print(cur, comparedict[cur])
 					print("{} trend has changed".format(cur))		
 
+def main():
+	try:
+		func()
+	except:
+		pass
 
-func()
+
+while True:
+	main()
