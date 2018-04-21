@@ -35,6 +35,13 @@ def func():
 		print(comparedict)
 	while True:
 		time.sleep(300)
+		global cyclecounter
+		cyclecounter += 1
+		if cyclecounter == 24:
+			bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
+			cyclecounter = 0
+		else:
+			pass	
 		for cur in comparedict:
 			string = '{} {}'.format(cur, 'YES' if check(bi, cur) == "UP" else 'NO')
 			if len(comparedict[cur]) > 1:
@@ -51,14 +58,6 @@ def func():
 					bot.sendMessage(-1001169060108, "{} buy signal".format(cur))				
 					print(cur, comparedict[cur])
 					print("{} trend has changed".format(cur))
-				global cyclecounter
-				cyclecounter += 1
-				if cyclecounter == 24:
-					bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
-					cyclecounter = 0
-				else:
-					pass	
-
 
 def main():
 	try:
