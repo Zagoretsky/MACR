@@ -5,7 +5,7 @@ import time
 
 CurrenciesOfInterest = ["BTC-ARK", "BTC-XVG", "BTC-OMG", "BTC-BCC", "BTC-ZEC", "BTC-ETH", "USDT-BTC", "BTC-NEO"]
 MA_FAST_PERIOD = 10
-MA_SLOW_PERIOD = 100
+MA_SLOW_PERIOD = 101
 
 
 bi = Bittrex(None, None, api_version=API_V2_0) 
