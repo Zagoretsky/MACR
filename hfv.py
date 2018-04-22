@@ -25,7 +25,7 @@ def check(bi, market):
 		return "DOWN"
 
 def MAoutput(bi, market):
-	candles = bi.get_candles(market, 'hour')['result']
+	candles = bi.get_candles(market, 'fiveMin')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
