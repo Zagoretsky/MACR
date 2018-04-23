@@ -3,7 +3,8 @@ from indicators import Indicators
 import telepot
 import time
 
-CurrenciesOfInterest = ["BTC-ARK", "BTC-XVG", "BTC-OMG", "BTC-BCC", "BTC-ZEC", "BTC-ETH", "USDT-BTC", "BTC-NEO"]
+CurrenciesOfInterest = ["BTC-ARK", "BTC-XVG", "BTC-OMG", "BTC-BCC", "BTC-ZEC", "BTC-ETH", "USDT-BTC", 
+"BTC-NEO", "BTC-TRX", "BTC-XRP", "BTC-GNT", "BTC-ADA", "BTC-BTG", "BTC-ETC", "BTC-DASH", "BTC-WAVES", "BTC-XMR", "BTC-DOGE", "BTC-LTC"]
 MA_FAST_PERIOD = 10
 MA_SLOW_PERIOD = 100
 
@@ -13,7 +14,7 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def check(bi, market):
-	candles = bi.get_candles(market, 'fiveMin')['result']
+	candles = bi.get_candles(market, 'hour')['result']
 	closes = list(map(lambda c: c['C'], candles))
 
 	ind = Indicators()
@@ -25,7 +26,7 @@ def check(bi, market):
 		return "DOWN"
 
 def MAoutput(bi, market):
-	candles = bi.get_candles(market, 'fiveMin')['result']
+	candles = bi.get_candles(market, 'hour')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
