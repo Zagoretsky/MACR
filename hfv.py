@@ -14,19 +14,19 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def check(bi, market):
-	candles = bi.get_candles(market, 'hour')['result']
+	candles = bi.get_candles(market, 'fiveMin')['result']
 	closes = list(map(lambda c: c['C'], candles))
 
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
 	mafast = ind.movingAverage(closes, MA_FAST_PERIOD)
-	if maslow < mafast < maslow * 1.005:
+	if mafast > maslow:
 		return "UP"
-	elif maslow * 0.995 < mafast < maslow:
+	elif mafast < maslow:
 		return "DOWN"
 
 def MAoutput(bi, market):
-	candles = bi.get_candles(market, 'hour')['result']
+	candles = bi.get_candles(market, 'fiveMin')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
