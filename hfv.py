@@ -3,8 +3,8 @@ from indicators import Indicators
 import telepot
 import time
 
-CurrenciesOfInterest = ["BTC-ARK", "BTC-XVG", "BTC-OMG", "BTC-BCC", "BTC-ZEC", "BTC-ETH", "USDT-BTC", 
-"BTC-NEO", "BTC-TRX", "BTC-XRP", "BTC-GNT", "BTC-ADA", "BTC-BTG", "BTC-ETC", "BTC-DASH", "BTC-WAVES", "BTC-XMR", "BTC-DOGE", "BTC-LTC"]
+CurrenciesOfInterest = ["BTC-ZEC", "BTC-ETH", "USDT-BTC"]
+# "BTC-NEO", "BTC-TRX", "BTC-XRP", "BTC-GNT", "BTC-ADA", "BTC-BTG", "BTC-ETC", "BTC-DASH", "BTC-WAVES", "BTC-XMR", "BTC-DOGE", "BTC-LTC", "BTC-ARK", "BTC-XVG", "BTC-OMG", "BTC-BCC", ]
 MA_FAST_PERIOD = 10
 MA_SLOW_PERIOD = 100
 
