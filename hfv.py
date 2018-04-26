@@ -71,11 +71,11 @@ def func():
 			if len(comparedict[cur]) > 1:
 				comparedict[cur] = comparedict[cur][-1:]
 				comparedict[cur].append(string)
-				if comparedict[cur][0][-3:] == "YES" and comparedict[cur][1][-2:] == "NO":
+				if comparedict[cur][0][-3:] != "NO" and comparedict[cur][1][-2:] == "NO":
 					bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} trend has changed".format(cur))
-				elif comparedict[cur][0][-2:] == "NO" and comparedict[cur][1][-3:] == "YES":
+				elif comparedict[cur][0][-2:] != "YES" and comparedict[cur][1][-3:] == "YES":
 					bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} trend has changed".format(cur))
