@@ -22,6 +22,8 @@ def check(bi, market):
 	mafast = ind.movingAverage(closes, MA_FAST_PERIOD)
 	if mafast > maslow * 1.015:
 		return "UP"
+	elif maslow * 0.985 < mafast < maslow * 1.015:
+		return "EARLY"
 	elif mafast < maslow * 0.985:
 		return "DOWN"
 
@@ -40,9 +42,15 @@ def func():
 	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 	comparedict = dict.fromkeys(CurrenciesOfInterest, [])
 	for marketName in CurrenciesOfInterest:
-		string = '{} {}'.format(marketName, 'YES' if check(bi, marketName) == "UP" else 'NO')
+		if check(bi, marketName) == "UP":
+			string = '{} {}'.format(marketName, 'YES')
+		elif check(bi, marketName) == "EARLY":
+			string = '{} {}'.format(marketName, 'EARLY')
+		else:
+			string = '{} {}'.format(marketName, 'NO')
+		#string = '{} {}'.format(marketName, 'YES' if check(bi, marketName) == "UP" else 'NO')
 		comparedict[marketName] = [string, string]
-	print(comparedict)
+	print(comparedict)	
 	while True:
 		time.sleep(300)
 		global cyclecounter
@@ -53,16 +61,17 @@ def func():
 		else:
 			pass	
 		for cur in comparedict:
-			string = '{} {}'.format(cur, 'YES' if check(bi, cur) == "UP" else 'NO')
+			if check(bi, cur) == "UP":
+				string = '{} {}'.format(cur, 'YES')
+			elif check(bi, cur) == "EARLY":
+				string = '{} {}'.format(cur, 'EARLY')
+			else:
+				string = '{} {}'.format(cur, 'NO')		
+			# string = '{} {}'.format(cur, 'YES' if check(bi, cur) == "UP" else 'NO')
 			if len(comparedict[cur]) > 1:
 				comparedict[cur] = comparedict[cur][-1:]
 				comparedict[cur].append(string)
-				if comparedict[cur][0] == comparedict[cur][1]:
-					print("*****")
-					print(comparedict[cur])
-					print("{} trend is the same".format(cur))
-					print("MA_fast {} MA_slow {}".format(MAoutput(bi, cur)[0], MAoutput(bi, cur)[1]))
-				elif comparedict[cur][0][-3:] == "YES" and comparedict[cur][1][-2:] == "NO":
+				if comparedict[cur][0][-3:] == "YES" and comparedict[cur][1][-2:] == "NO":
 					bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} trend has changed".format(cur))
@@ -70,6 +79,11 @@ def func():
 					bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} trend has changed".format(cur))
+				else:
+					print("*****")
+					print(comparedict[cur])
+					print("{} trend is the same".format(cur))
+					print("MA_fast {} MA_slow {}".format(MAoutput(bi, cur)[0], MAoutput(bi, cur)[1]))	
 
 def main():
 	try:
