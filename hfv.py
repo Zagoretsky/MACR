@@ -76,8 +76,7 @@ def func():
 					if "SELL" in CurrentSignals[cur]:
 						pass
 					else:
-						print("sending sell")
-						# bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
+						bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} sell signal".format(cur))
 					if len(CurrentSignals[cur]) == 0:
@@ -89,8 +88,7 @@ def func():
 					if "BUY" in CurrentSignals[cur]:
 						pass
 					else:
-						print("sending buy")
-						# bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
+						bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} buy signal".format(cur))
 					if len(CurrentSignals[cur]) == 0:
