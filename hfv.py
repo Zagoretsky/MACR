@@ -14,7 +14,7 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def check(bi, market):
-	candles = bi.get_candles(market, 'Hour')['result']
+	candles = bi.get_candles(market, 'fiveMin')['result']
 	closes = list(map(lambda c: c['C'], candles))
 
 	ind = Indicators()
@@ -28,7 +28,7 @@ def check(bi, market):
 		return "DOWN"
 
 def MAoutput(bi, market):
-	candles = bi.get_candles(market, 'Hour')['result']
+	candles = bi.get_candles(market, 'fiveMin')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
@@ -36,7 +36,11 @@ def MAoutput(bi, market):
 	return [mafast, maslow]
 					
 
-cyclecounter = 0		
+cyclecounter = 0
+CurrentSignals = dict.fromkeys(CurrenciesOfInterest, [])
+for cur in CurrentSignals:
+	print len(CurrentSignals[cur])
+
 
 def func():
 	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
@@ -48,7 +52,6 @@ def func():
 			string = '{} {}'.format(marketName, 'EARLY')
 		else:
 			string = '{} {}'.format(marketName, 'NO')
-		#string = '{} {}'.format(marketName, 'YES' if check(bi, marketName) == "UP" else 'NO')
 		comparedict[marketName] = [string, string]
 	print(comparedict)	
 	while True:
@@ -67,23 +70,39 @@ def func():
 				string = '{} {}'.format(cur, 'EARLY')
 			else:
 				string = '{} {}'.format(cur, 'NO')		
-			# string = '{} {}'.format(cur, 'YES' if check(bi, cur) == "UP" else 'NO')
 			if len(comparedict[cur]) > 1:
 				comparedict[cur] = comparedict[cur][-1:]
 				comparedict[cur].append(string)
 				if comparedict[cur][0][-2:] != "NO" and comparedict[cur][1][-2:] == "NO":
-					bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
+					if "SELL" in CurrentSignals[cur]:
+						pass
+					else:
+						bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
-					print("{} trend has changed".format(cur))
+					print("{} sell signal".format(cur))
+					if len(CurrentSignals[cur]) = 0:
+						CurrentSignals[cur].append("SELL")
+					elif len(CurrentSignals[cur]) = 1:
+						(CurrentSignals[cur]).pop()
+						CurrentSignals[cur].append("SELL")
 				elif comparedict[cur][0][-3:] != "YES" and comparedict[cur][1][-3:] == "YES":
-					bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
+					if "BUY" in CurrentSignals[cur]:
+						pass
+					else:
+						bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
-					print("{} trend has changed".format(cur))
+					print("{} buy signal".format(cur))
+					if len(CurrentSignals[cur]) = 0:
+						CurrentSignals[cur].append("BUY")
+					elif len(CurrentSignals[cur]) = 1:
+						(CurrentSignals[cur]).pop()
+						CurrentSignals[cur].append("BUY")
 				else:
 					print("*****")
 					print(comparedict[cur])
 					print("{} trend is the same".format(cur))
-					print("MA_fast {} MA_slow {}".format(MAoutput(bi, cur)[0], MAoutput(bi, cur)[1]))	
+					print("MA_fast {} MA_slow {}".format(MAoutput(bi, cur)[0], MAoutput(bi, cur)[1]))
+				print(CurrentSignals)		
 
 def main():
 	try:
