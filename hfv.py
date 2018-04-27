@@ -20,11 +20,11 @@ def check(bi, market):
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
 	mafast = ind.movingAverage(closes, MA_FAST_PERIOD)
-	if mafast > maslow * 1.015:
+	if mafast > maslow * 1.005:
 		return "UP"
-	elif maslow * 0.985 < mafast < maslow * 1.015:
+	elif maslow * 0.995 < mafast < maslow * 1.005:
 		return "EARLY"
-	elif mafast < maslow * 0.985:
+	elif mafast < maslow * 0.995:
 		return "DOWN"
 
 def MAoutput(bi, market):
