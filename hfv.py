@@ -103,7 +103,7 @@ def func():
 					print(comparedict[cur])
 					print("{} trend is the same".format(cur))
 					print("MA_fast {} MA_slow {}".format(MAoutput(bi, cur)[0], MAoutput(bi, cur)[1]))
-				print(CurrentSignals)		
+		print(CurrentSignals)		
 
 def main():
 	try:
