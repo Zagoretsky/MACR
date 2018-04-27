@@ -38,8 +38,6 @@ def MAoutput(bi, market):
 
 cyclecounter = 0
 CurrentSignals = dict.fromkeys(CurrenciesOfInterest, [])
-for cur in CurrentSignals:
-	print len(CurrentSignals[cur])
 
 
 def func():
@@ -57,6 +55,7 @@ def func():
 	while True:
 		time.sleep(300)
 		global cyclecounter
+		global CurrentSignals
 		cyclecounter += 1
 		if cyclecounter == 24:
 			bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
@@ -77,24 +76,26 @@ def func():
 					if "SELL" in CurrentSignals[cur]:
 						pass
 					else:
-						bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
+						print("sending sell")
+						# bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} sell signal".format(cur))
-					if len(CurrentSignals[cur]) = 0:
+					if len(CurrentSignals[cur]) == 0:
 						CurrentSignals[cur].append("SELL")
-					elif len(CurrentSignals[cur]) = 1:
+					elif len(CurrentSignals[cur]) == 1:
 						(CurrentSignals[cur]).pop()
 						CurrentSignals[cur].append("SELL")
 				elif comparedict[cur][0][-3:] != "YES" and comparedict[cur][1][-3:] == "YES":
 					if "BUY" in CurrentSignals[cur]:
 						pass
 					else:
-						bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
+						print("sending buy")
+						# bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} buy signal".format(cur))
-					if len(CurrentSignals[cur]) = 0:
+					if len(CurrentSignals[cur]) == 0:
 						CurrentSignals[cur].append("BUY")
-					elif len(CurrentSignals[cur]) = 1:
+					elif len(CurrentSignals[cur]) == 1:
 						(CurrentSignals[cur]).pop()
 						CurrentSignals[cur].append("BUY")
 				else:
