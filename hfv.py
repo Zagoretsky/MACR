@@ -53,7 +53,7 @@ def func():
 		comparedict[marketName] = [string, string]
 	print(comparedict)	
 	while True:
-		time.sleep(300)
+		time.sleep(90)
 		global cyclecounter
 		global CurrentSignals
 		cyclecounter += 1
@@ -62,7 +62,7 @@ def func():
 			cyclecounter = 0
 		else:
 			pass	
-		for cur in comparedict:
+		for cur, pair in (comparedict,CurrentSignals):
 			if check(bi, cur) == "UP":
 				string = '{} {}'.format(cur, 'YES')
 			elif check(bi, cur) == "EARLY":
@@ -73,29 +73,29 @@ def func():
 				comparedict[cur] = comparedict[cur][-1:]
 				comparedict[cur].append(string)
 				if comparedict[cur][0][-2:] != "NO" and comparedict[cur][1][-2:] == "NO":
-					if "SELL" in CurrentSignals[cur]:
+					if "SELL" in CurrentSignals[pair]:
 						pass
 					else:
 						bot.sendMessage(-1001169060108, "{} *sell signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} sell signal".format(cur))
-					if len(CurrentSignals[cur]) == 0:
-						CurrentSignals[cur].append("SELL")
-					elif len(CurrentSignals[cur]) == 1:
-						(CurrentSignals[cur]).pop()
-						CurrentSignals[cur].append("SELL")
+					if len(CurrentSignals[pair]) == 0:
+						CurrentSignals[pair].append("SELL")
+					elif len(CurrentSignals[pair]) == 1:
+						(CurrentSignals[pair]).pop()
+						CurrentSignals[pair].append("SELL")
 				elif comparedict[cur][0][-3:] != "YES" and comparedict[cur][1][-3:] == "YES":
-					if "BUY" in CurrentSignals[cur]:
+					if "BUY" in CurrentSignals[pair]:
 						pass
 					else:
 						bot.sendMessage(-1001169060108, "{} *buy signal* {} ".format(cur, MAoutput(bi, cur)))			
 					print(comparedict[cur])
 					print("{} buy signal".format(cur))
-					if len(CurrentSignals[cur]) == 0:
-						CurrentSignals[cur].append("BUY")
-					elif len(CurrentSignals[cur]) == 1:
-						(CurrentSignals[cur]).pop()
-						CurrentSignals[cur].append("BUY")
+					if len(CurrentSignals[pair]) == 0:
+						(CurrentSignals[pair]).append("BUY")
+					elif len(CurrentSignals[pair]) == 1:
+						(CurrentSignals[pair]).pop()
+						CurrentSignals[pair].append("BUY")
 				else:
 					print("*****")
 					print(comparedict[cur])
