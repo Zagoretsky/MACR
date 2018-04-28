@@ -55,16 +55,16 @@ def Bot():
 		global comparedict
 		global CurrentSignals
 		for pair in comparedict:
-			if comparedict[pair][0] != "BUY" and comparedict[pair][0] == "BUY" and CurrentSignals[pair] != ["BUY SIGNAL"]:
+			if comparedict[pair][0] != "BUY" and comparedict[pair][1] == "BUY" and CurrentSignals[pair] != ["BUY SIGNAL"]:
 				string = (pair, "BUY SIGNAL")
 				print(string)
-				bot.sendMessage(-1001169060108, string)
+				bot.sendMessage(-1001169060108, "{}".format(string))
 				CurrentSignals[pair] = []
 				CurrentSignals[pair] = ["BUY SIGNAL"]
-			elif comparedict[pair][0] != "SELL" and comparedict[pair][0] == "SELL" and CurrentSignals[pair] != ["SELL SIGNAL"]:
+			elif comparedict[pair][0] != "SELL" and comparedict[pair][1] == "SELL" and CurrentSignals[pair] != ["SELL SIGNAL"]:
 				string = (pair, "SELL SIGNAL")
 				print(string)
-				bot.sendMessage(-1001169060108, string)
+				bot.sendMessage(-1001169060108, "{}".format(string))
 				CurrentSignals[pair] = []
 				CurrentSignals[pair] = ["SELL SIGNAL"]
 			else:
@@ -73,12 +73,10 @@ def Bot():
 		print(CurrentSignals)
 		time.sleep(180)
 
-Bot()
-
-# def main():
-# 	try:
-# 		Bot()
-# 	except:
-# 		pass
-# while True:
-# 	main()
+def main():
+	try:
+		Bot()
+	except:
+		pass
+while True:
+	main()
