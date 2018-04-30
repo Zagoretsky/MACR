@@ -12,7 +12,7 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def masub(market):
-	candles = bi.get_candles(market, 'Day')['result']
+	candles = bi.get_candles(market, 'hour')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
