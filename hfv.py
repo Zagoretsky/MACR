@@ -12,7 +12,7 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def masub(market):
-	candles = bi.get_candles(market, 'fiveMin')['result']
+	candles = bi.get_candles(market, 'Day')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
@@ -21,9 +21,9 @@ def masub(market):
 	return masub
 
 def signal(currency):
-	if masub(currency) > 0.005:
+	if masub(currency) > 0.015:
 		return "BUY"
-	elif masub(currency) < -0.005:
+	elif masub(currency) < -0.015:
 		return "SELL"
 	else:
 		return "EARLY"
