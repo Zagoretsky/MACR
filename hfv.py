@@ -12,7 +12,7 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def masub(market):
-	candles = bi.get_candles(market, 'Day')['result']
+	candles = bi.get_candles(market, 'hour')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
@@ -45,6 +45,8 @@ def Bot():
 	while True:
 		bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 		global cyclecounter
+		global comparedict
+		global CurrentSignals
 		cyclecounter += 1
 		if cyclecounter == :
 			bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
@@ -52,8 +54,6 @@ def Bot():
 		else:
 			pass
 		DictFormation()
-		global comparedict
-		global CurrentSignals
 		for pair in comparedict:
 			if comparedict[pair][0] != "BUY" and comparedict[pair][1] == "BUY" and CurrentSignals[pair] != ["BUY SIGNAL"]:
 				string = (pair, "BUY SIGNAL")
@@ -61,7 +61,7 @@ def Bot():
 				bot.sendMessage(-1001169060108, "{}".format(string))
 				CurrentSignals[pair] = []
 				CurrentSignals[pair] = ["BUY SIGNAL"]
-			elif comparedict[pair][0] != "SELL" and comparedict[pair][1] == "SELL" and CurrentSignals[pair] != ["SELL SIGNAL"]:
+			elif comparedict[pair][0] != "SELL" and comparedict[pair][1] == "SELL" and CurrentSignals[pair] == ["BUY SIGNAL"]:
 				string = (pair, "SELL SIGNAL")
 				print(string)
 				bot.sendMessage(-1001169060108, "{}".format(string))
