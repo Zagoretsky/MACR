@@ -48,7 +48,7 @@ def Bot():
 		global comparedict
 		global CurrentSignals
 		cyclecounter += 1
-		if cyclecounter == :
+		if cyclecounter == 30:
 			bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
 			cyclecounter = 0
 		else:
