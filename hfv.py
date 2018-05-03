@@ -92,12 +92,11 @@ def Bot():
 			json.dump(CurrentSignals, f)
 		time.sleep(15)
 
-Bot()
 
-# def main():
-# 	try:
-# 		Bot()
-# 	except:
-# 		pass
-# while True:
-# 	main()
+def main():
+	try:
+		Bot()
+	except:
+		pass
+while True:
+	main()
