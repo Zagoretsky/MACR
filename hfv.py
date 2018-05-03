@@ -22,9 +22,9 @@ def masub(market):
 	return masub
 
 def signal(currency):
-	if masub(currency) > 0.015:
+	if masub(currency) > 0.005:
 		return "BUY"
-	elif masub(currency) < -0.015:
+	elif masub(currency) < -0.005:
 		return "SELL"
 	else:
 		return "EARLY"
