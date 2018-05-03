@@ -52,6 +52,7 @@ def SignalDict():
 cyclecounter = 0
 
 def cycle():
+	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 	global cyclecounter
 	cyclecounter += 1
 	if cyclecounter == 30:
@@ -67,7 +68,6 @@ def Bot():
 	global comparedict
 	global cyclecounter
 	global CurrentSignals
-	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 
 	while True:
 		cycle()
