@@ -2,6 +2,7 @@ from bittrex import Bittrex, API_V2_0
 from indicators import Indicators
 import telepot
 import time
+import json
 
 CurrenciesOfInterest = ["BTC-ZEC", "BTC-ETH", "USDT-BTC", "BTC-BCC", "BTC-OMG"]
 MA_FAST_PERIOD = 10
@@ -12,7 +13,7 @@ market_sums = bi.get_market_summaries()['result']
 markets = list(map(lambda m: m['Market']['MarketName'], market_sums))
 
 def masub(market):
-	candles = bi.get_candles(market, 'hour')['result']
+	candles = bi.get_candles(market, 'fiveMin')['result']
 	closes = list(map(lambda c: c['C'], candles))
 	ind = Indicators()
 	maslow = ind.movingAverage(closes, MA_SLOW_PERIOD)
@@ -38,22 +39,38 @@ def DictFormation():
 		elif len(comparedict[marketName]) == 2:
 			comparedict[marketName] = [comparedict[marketName][-1],signal(marketName)]
 
-CurrentSignals = dict.fromkeys(CurrenciesOfInterest, [])
+CurrentSignals = {}
+
+def SignalDict():
+    global CurrentSignals
+    try:
+        with open("Signals.json") as r:
+            CurrentSignals = (json.load(r))
+    except:
+        CurrentSignals = dict.fromkeys(CurrenciesOfInterest, [])
+
 cyclecounter = 0
 
+def cycle():
+	global cyclecounter
+	cyclecounter += 1
+	if cyclecounter == 30:
+		bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
+		cyclecounter = 0
+	else:
+		pass
+
 def Bot():
+
+	DictFormation()
+	SignalDict()
+	global comparedict
+	global cyclecounter
+	global CurrentSignals
+	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
+
 	while True:
-		bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
-		global cyclecounter
-		global comparedict
-		global CurrentSignals
-		cyclecounter += 1
-		if cyclecounter == 30:
-			bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
-			cyclecounter = 0
-		else:
-			pass
-		DictFormation()
+		cycle()
 		for pair in comparedict:
 			if comparedict[pair][0] != "BUY" and comparedict[pair][1] == "BUY" and CurrentSignals[pair] != ["BUY SIGNAL"]:
 				string = (pair, "BUY SIGNAL")
@@ -71,12 +88,16 @@ def Bot():
 				print(pair, "Trend is the same")
 		print(comparedict)
 		print(CurrentSignals)
-		time.sleep(180)
+		with open("Signals.json", 'w') as f:
+			json.dump(CurrentSignals, f)
+		time.sleep(15)
 
-def main():
-	try:
-		Bot()
-	except:
-		pass
-while True:
-	main()
+Bot()
+
+# def main():
+# 	try:
+# 		Bot()
+# 	except:
+# 		pass
+# while True:
+# 	main()
