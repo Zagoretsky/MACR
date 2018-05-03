@@ -90,7 +90,7 @@ def Bot():
 		print(CurrentSignals)
 		with open("Signals.json", 'w') as f:
 			json.dump(CurrentSignals, f)
-		time.sleep(15)
+		time.sleep(180)
 
 
 def main():
