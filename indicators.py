@@ -1,4 +1,4 @@
-import numpy as np
+
 
 class Indicators(object):
     def __init__(self):
@@ -55,16 +55,16 @@ class Indicators(object):
         y = abs(h-yc)
         z = abs(l-yc)
 
-        return max(x, y, z)          
+        return max(x, y, z)
 
     def ExpMovingAverage(values, window):
         weights = np.exp(np.linspace(-1., 0., window))
         weights /= weights.sum()
         a =  np.convolve(values, weights, mode='full')[:len(values)]
         a[:window] = a[window]
-        return 
+        return
 
-        #ATR = ExpMovingAverage(TrueRanges,14)          
+        #ATR = ExpMovingAverage(TrueRanges,14)
 
     def RSI (self, prices, period=14):
         deltas = np.diff(prices)
@@ -74,7 +74,7 @@ class Indicators(object):
         rs = up/down
         rsi = np.zeros_like(prices)
         rsi[:period] = 100. - 100./(1. + rs)
- 
+
         for i in range(period, len(prices)):
             delta = deltas[i - 1]  # cause the diff is 1 shorter
             if delta > 0:
@@ -83,7 +83,7 @@ class Indicators(object):
             else:
                 upval = 0.
                 downval = -delta
- 
+
             up = (up*(period - 1) + upval)/period
             down = (down*(period - 1) + downval)/period
             rs = up/down
