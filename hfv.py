@@ -63,6 +63,7 @@ def cycle():
 
 def Bot():
 
+	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 	DictFormation()
 	SignalDict()
 	global comparedict
