@@ -64,14 +64,15 @@ def cycle():
 def Bot():
 
 	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
-	DictFormation()
-	SignalDict()
+
 	global comparedict
 	global cyclecounter
 	global CurrentSignals
 
 	while True:
 		cycle()
+		DictFormation()
+		SignalDict()
 		for pair in comparedict:
 			if comparedict[pair][0] != "BUY" and comparedict[pair][1] == "BUY" and CurrentSignals[pair] != ["BUY SIGNAL"]:
 				string = (pair, "BUY SIGNAL")
