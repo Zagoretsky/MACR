@@ -55,7 +55,7 @@ def cycle():
 	bot = telepot.Bot('572875215:AAHeDNnqpu8P5KIKrmeBYM7nx3a9RwZtfz4')
 	global cyclecounter
 	cyclecounter += 1
-	if cyclecounter == 30:
+	if cyclecounter == 80:
 		bot.sendMessage(-1001169060108, "Buddy, I'm working, hope you are doing well too")
 		cyclecounter = 0
 	else:
