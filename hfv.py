@@ -8,6 +8,8 @@ CurrenciesOfInterest = ["ZEC/BTC", "ETH/BTC", "BTC/USDT","BCH/BTC","OMG/BTC"]
 MA_FAST_PERIOD = 10
 MA_SLOW_PERIOD = 100
 
+binance = ccxt.binance()
+
 def masub(market):
 	ind = Indicators()
 	binl = binance.fetch_ohlcv(market, timeframe='1h', since=None, limit=None, params={})
@@ -78,11 +80,11 @@ def Bot():
 		with open("Signals.json", 'w') as f:
 			json.dump(CurrentSignals, f)
 		time.sleep(180)
-
-def main():
-	try:
-		Bot()
-	except:
-		pass
-while True:
-	main()
+Bot()
+# def main():
+# 	try:
+# 		Bot()
+# 	except:
+# 		pass
+# while True:
+# 	main()
