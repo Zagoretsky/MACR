@@ -80,11 +80,11 @@ def Bot():
 		with open("Signals.json", 'w') as f:
 			json.dump(CurrentSignals, f)
 		time.sleep(180)
-Bot()
-# def main():
-# 	try:
-# 		Bot()
-# 	except:
-# 		pass
-# while True:
-# 	main()
+
+def main():
+	try:
+		Bot()
+	except:
+		pass
+while True:
+	main()
